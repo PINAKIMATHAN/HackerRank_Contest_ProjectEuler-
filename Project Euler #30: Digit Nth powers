@@ -1,0 +1,14 @@
+Project Euler #30: Digit Nth powers
+------------------------------------------Python
+#python
+pw=int(input())
+res=set()
+for num0 in range(100, 1000000):
+    su=0
+    num=num0
+    while num!=0:
+        su+=(num %10)**pw
+        num//=10
+    if su==num0:
+        res.add(num0)
+print(sum(res))
