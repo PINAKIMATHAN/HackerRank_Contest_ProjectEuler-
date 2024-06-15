@@ -1,0 +1,22 @@
+Project Euler #24: Lexicographic permutations
+------------------------------------------------Python
+def factorial(n):
+    if n == 1:
+        return 1
+    
+    return n * factorial(n - 1)
+    
+permutations = [factorial(i) for i in range(12, 0, -1)]
+
+for _ in range(int(input())):
+    N = int(input()) - 1
+    ret = ''
+    letters = list("abcdefghijklm")
+    
+    for i in permutations:
+        q, N = divmod(N, i)
+        ret += letters.pop(q)
+        
+    ret += letters[0]
+        
+    print(ret)
