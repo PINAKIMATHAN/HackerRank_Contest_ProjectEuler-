@@ -1,0 +1,4 @@
+Project Euler #13: Large sum
+-------------------------------Python
+inputs = [int(input()) for _ in range(int(input()))]
+print(str(sum(inputs))[:10])
