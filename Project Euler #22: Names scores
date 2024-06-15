@@ -1,0 +1,10 @@
+Project Euler #22: Names scores
+--------------------------------------------Python
+#python
+names=sorted([input().lower() for x in range(int(input()))])
+queries=[input().lower() for x in range(int(input()))]
+for x in queries:
+    s=0
+    for y in x:
+        s+=abs(ord(y)-ord('a')+1)
+    print(s*(names.index(x)+1))
