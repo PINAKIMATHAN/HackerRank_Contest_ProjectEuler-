@@ -1,0 +1,17 @@
+Project Euler #42: Coded triangle numbers
+----------------------------------------------------Python
+import math
+
+a, b, c = 1, 1, -2
+
+for a0 in range(int(input())):
+    N = int(input())
+    D = int(math.sqrt((b**2 - 4 * a * c * N)))
+    n1, n2 = (-b-D)//(2*a), (-b+D)//(2*a)
+    #print(N, n1, n2)
+    if n1 > 0 and N == n1*(n1+1)//2:
+        print(n1)
+    elif n2> 0 and N == n2*(n2+1)//2:
+        print(n2)
+    else:
+        print(-1)
