@@ -1,0 +1,32 @@
+Project Euler #26: Reciprocal cycles
+--------------------------------------------Python
+#python
+def countofdigits(n):
+    c=1
+    res=set()
+    while c<n:
+        c=c*10
+    while True:
+        rem=c %n
+        c=rem*10
+        if rem==0:
+            return 0
+        if rem not in res:
+            res.add(rem)
+        else:
+            break
+    return len(res)
+
+m=0
+num=0
+result=['L', '0', 'V', 'E']
+for x in range(3, 10000):
+    c=countofdigits(x)
+    if c>m:
+        m=c
+        num=x
+    result.append(num)
+t=int(input())
+for x in range(t):
+    n=int(input())
+    print(result[n])
