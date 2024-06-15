@@ -1,0 +1,24 @@
+Project Euler #38: Pandigital multiples
+--------------------------------------------Python
+def find_numbers(n, k):
+    s = sorted(list(range(1, k + 1)))
+
+    for i in range(2, n + 1):
+        temp = ""
+        j = 1
+
+        while len(temp) < k:
+            num = i * j
+            temp += str(num)
+            j += 1
+
+        temp_digits = sorted(map(int, temp))
+        
+        if temp_digits == s and len(set(temp_digits)) == k:
+            print(i)
+
+
+# Example usage
+a = list(map(int, input().split()))
+n, k = a[0], a[1]
+find_numbers(n, k)
