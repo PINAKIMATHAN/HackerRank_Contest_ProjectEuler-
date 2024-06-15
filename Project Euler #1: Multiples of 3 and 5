@@ -1,0 +1,46 @@
+Project Euler #1: Multiples of 3 and 5
+-----------------------------------------C++
+#include <map>
+#include <set>
+#include <list>
+#include <cmath>
+#include <ctime>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <string>
+#include <bitset>
+#include <cstdio>
+#include <limits>
+#include <vector>
+#include <climits>
+#include <cstring>
+#include <cstdlib>
+#include <fstream>
+#include <numeric>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
+#include <unordered_map>
+
+using namespace std;
+
+
+int main(){
+    int t;
+    cin >> t;
+    for(int a0 = 0; a0 < t; a0++){
+        int n;
+        cin >> n;
+        long int multi_five = (n-1)/5;
+        long int multi_three = (n-1)/3;
+        long int multi_fivteen = (n-1)/15;
+
+        long int sum_five = 5*(multi_five*(multi_five+1)/2);  
+        long int sum_three = 3*(multi_three*(multi_three+1)/2);
+        long int sum_fivteen = 15*(multi_fivteen*(multi_fivteen+1)/2);
+        
+        cout << sum_five + sum_three - sum_fivteen << endl;
+    }
+    return 0;
+}
