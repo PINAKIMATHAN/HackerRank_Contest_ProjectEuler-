@@ -1,0 +1,12 @@
+Project Euler #31: Coin sums
+-----------------------------------------Python
+#python
+n=[int(input()) for x in range(int(input()))]
+temp=[0]*(max(n)+1)
+temp[0] = 1
+coins=[1, 2, 5, 10, 20, 50, 100, 200]
+for i in range(8):
+    for j in range(coins[i], max(n)+1):
+        temp[j] += temp[j-coins[i]]
+for x in n:
+    print(temp[x] %(10**9+7))
