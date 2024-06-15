@@ -1,0 +1,21 @@
+Project Euler #2: Even Fibonacci numbers
+-----------------------------------------Python
+#!/bin/python3
+
+import sys
+
+def F(n):
+    phi = (1 + 5**0.5)/2
+    return round((phi**n-(-phi)**(-n))/5**0.5)
+
+t = int(input().strip())
+for a0 in range(t):
+    num = int(input().strip())
+    n = 0
+    F3n = 0
+    s = 0
+    while F3n <= num:
+        s += F3n
+        F3n = 5*F(n)**3 + 3*(-1)**n*F(n)
+        n += 1
+    print(s)
