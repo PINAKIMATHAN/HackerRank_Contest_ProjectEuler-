@@ -1,0 +1,29 @@
+Project Euler #35: Circular primes
+-----------------------------------------------Python
+from itertools import product
+
+def do_sieve(n=10**6):
+    sieve = [False, True, False, True] * (n//4 + 1)
+    nroot = int((n+1)**.5)
+    for p in range(3, nroot +1, 2):
+        if sieve[p]:
+            for i in range(p*p, n+1, p): sieve[i] = False
+    return sieve
+
+n = int(input())
+
+prime = do_sieve(n)
+s = 2+3+5+7
+
+for l in range(2, len(str(n)) +1):
+    for cand in product('13579', repeat=l):
+        p = int(''.join(cand))
+        if int(p) >= n: break
+        for _ in range(l):
+            if not prime[p]: break
+            cand = cand[1:] + (cand[0],)
+            p = int(''.join(cand))
+        else:
+            s += p
+
+print(s)  
