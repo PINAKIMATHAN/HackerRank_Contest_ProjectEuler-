@@ -1,0 +1,16 @@
+Project Euler #21: Amicable numbers
+---------------------------------------Python
+#python
+def s(n):
+    s=1
+    for x in range(2, int(n**.5)+1):
+        if n %x==0:
+            s+=x+n//x
+    return s
+n=[int(input()) for x in range(int(input()))]
+res=set()
+for x in range(max(n)+1):
+    if x==s(s(x)) and x!=s(x):
+        res.add(x)
+for _ in n:
+    print(sum(x for x in res if x<=_))
