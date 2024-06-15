@@ -1,0 +1,7 @@
+Project Euler #15: Lattice paths
+--------------------------------------Python
+#python
+import math
+for i in range(int(input())):
+    n, m=map(int, input().split())
+    print(math.comb(n+m, m) %(10**9+7))
