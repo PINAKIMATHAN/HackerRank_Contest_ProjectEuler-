@@ -1,0 +1,38 @@
+Project Euler #19: Counting Sundays
+---------------------------------------C++
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int days[13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+int jan1st(long long y) { // Monday is zero.
+    long long leaps = (y - 1901) / 4 - (y - 1901) / 100 + (y - 1601) / 400;
+    return ((y - 1900) * 365 + leaps) % 7;
+}
+long long countSundays(long long y1, int m1, long long y2, int m2) {
+    int cur = jan1st(y1), cnt = 0;
+    for (long long y = y1; y <= y2; ++y) {
+        bool isLeap = y % 100 == 0 ? y % 400 == 0 : y % 4 == 0;
+        for (int m = 1; m <= (y == y2 ? m2 : 12); ++m) {
+            if (y1 < y || m >= m1)
+                cnt += cur == 6;
+            cur = (cur + days[m] + (isLeap && m == 2)) % 7;
+        }
+    }
+    return cnt;
+}
+int main() {
+    int t, m1, d1, m2, d2;
+    long long y1, y2;
+    cin >> t;
+    while (t--) {
+        cin >> y1 >> m1 >> d1;
+        cin >> y2 >> m2 >> d2;
+        cout << countSundays(y1, m1 + (d1 > 1), y2, m2) << endl;
+    }
+    return 0;
+}
