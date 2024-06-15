@@ -1,0 +1,46 @@
+Project Euler #41: Pandigital prime
+-----------------------------------------------Python
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+import math
+from itertools import permutations as p
+
+primes_p, pan_d = [], list('123456789')
+
+def is_prime(n):
+    for i in range(2, 1+int(math.sqrt(n))):
+        if n % i == 0:
+            return(False)
+    else:
+        return(True)
+        
+for i in range(3, 10):
+    # an prime ends with only 9,7,3 or 1 
+    prim_e = ''.join(_ for _ in '9731' if int(_) <= i)
+    for j in prim_e:
+        s = pan_d[:i]
+        s.remove(j)
+        #iterating through the permutations of numbers without 9 or 7 or 3 or 1 as it is the ending digit, this reduces the solution set to potential prime numbers
+        for k in p(s):
+            n = int(''.join(k)+j)
+            if is_prime(n):
+                primes_p.append(n)
+                
+#print(primes_p)
+primes_p.sort()
+
+def search(v, l, r, a):
+    if l == r:
+        if l == 0:
+            return(-1 if v < a[l] else a[l])
+        elif v < a[l]:
+            return(a[l-1])
+        else:
+            return(a[l])
+    m = (l+r)//2
+    if v <= a[m]:
+        return(search(v, l, m, a))
+    else:
+        return(search(v, m+1, r, a))
+
+for a0 in range(int(input())):
+    print( search(int(input()), 0, len(primes_p)-1 , primes_p ) )
