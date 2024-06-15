@@ -1,0 +1,19 @@
+Project Euler #25: N-digit Fibonacci number
+---------------------------------------------------Python
+#python
+a=1
+b=1
+c=10
+term=[0, 0]
+s=0
+for x in range(3, 25000):
+    s=a+b
+    a=b
+    b=s
+    if s/c>=1:
+        c*=10
+        term.append(x)
+t=int(input())
+for x in range(t):
+    n=int(input())
+    print(term[n])
