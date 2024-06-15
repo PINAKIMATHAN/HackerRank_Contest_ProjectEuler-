@@ -1,0 +1,87 @@
+Project Euler #51: Prime digit replacements
+--------------------------------------------------Python
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+import math
+from collections import deque
+
+n, k, l = map(int, input().split())
+
+last_d  = ['1', '3', '7', '9']
+
+primes = [ 0 for i in range(2, 1+10**n) ]
+
+for i in range(2, int(math.sqrt(10**n))):
+    if primes[i]:
+       continue
+    for j in range(i*2, len(primes), i):
+        primes[j] = 1
+
+def main():
+    if k == n:
+        #solutions can only be 1*, 3*, 7* and 9* and not l > 4
+        print(11)
+    else:
+        soln, soln_space = [], deque( map(lambda x: '0'*(n-len(x))+x, [bin(i)[2:]
+                        for i in range(2**n-1, -1, -1) if bin(i).count('1') == k ]) )
+        T, minval = 1, 10**7
+        while soln_space:
+            N = soln_space.popleft() if T%2 == 1 else soln_space.pop()
+            T += 1
+            if (N[0] == '1' and N[-1] == '1') or N[-1] == '1':
+                v = last_d
+            elif N[0] == '1':
+                v = range(1, 10)
+            else:
+                v = range(10)
+            N = N.replace('1', '-')
+            c, end_val = [ 0 for _ in range(n)], 1
+            for _ in range(n):
+                if N[_] == '0':
+                    if _ == 0:
+                        c[_], end_val = deque(range(1,10)), end_val*9
+                    elif _ == n-1:
+                        c[_], end_val = deque(last_d), end_val*4
+                    else:
+                        c[_], end_val = deque(range(10)), end_val*10
+                else:
+                    c[_] = N[_]
+            z_c = 0
+            #print(N)
+            while z_c < end_val:
+                r_c, N = 1, ''
+                for _ in range(len(c)-1, -1, -1):
+                    if not c[_] == '-':
+                        if  r_c == 1 and z_c != 0 :
+                            c[_].rotate(-1)
+                        elif z_c > 0 and  z_c % r_c == 0:
+                            c[_].rotate(-1)
+                        N = str(c[_][0])+N
+                        r_c *= len(c[_])
+                    else:
+                        N = '-'+N
+                z_c += 1
+                if int(N.replace('-', str(v[0]))) > minval:
+                    break
+                tmp, ll = [], len(v)
+                if len(v) < l:
+                    break
+                for j in range(ll):
+                    val = N.replace('-', str(v[j]))
+                    if (j == 0 and int(val) > minval):
+                        break
+                    if  primes[int(val)] == 0:
+                        tmp.append(val)
+                    if len(tmp) >=  l:
+                        if minval > int(tmp[0]):
+                            minval = int(tmp[0])
+                        soln.append(tmp)
+                        break
+                    if len(tmp)+ll-(j+1) < l:
+                         break
+        #print(soln)
+        soln.sort()
+        print(*soln[0][:l])
+
+
+if __name__ == '__main__':
+    main()
