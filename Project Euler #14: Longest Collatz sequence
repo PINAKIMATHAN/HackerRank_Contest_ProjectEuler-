@@ -1,0 +1,39 @@
+Project Euler #14: Longest Collatz sequence
+---------------------------------------------C
+#include <stdio.h>
+#include <malloc.h>
+
+unsigned long numState(unsigned long num){
+    unsigned long numState = 0;
+    while(num!=1){
+        if(num % 2 == 0)num/=2;
+        else num=3*num+1;
+        numState++; 
+    }
+    return numState;
+}
+
+int main(){
+    int t,i=0,max=0;
+    scanf("%d",&t);
+    int arrInput[t];
+    for (i = 0; i < t; i++) {
+        scanf("%d", &arrInput[i]);
+        if (arrInput[i] > max)
+            max = arrInput[i];
+    }
+    unsigned long *ans = (unsigned long*)malloc((max+1)*sizeof(unsigned long));
+    unsigned long num_State = 0,max_state=1,steps=0;
+    for(unsigned long j=1;j<=max;j++){
+        num_State=numState(j);
+        if(num_State>=max_state){
+            max_state=num_State;
+            steps = j;
+        }
+        ans[j] = steps;
+    }
+    for(int j=0;j<t;j++)
+        printf("%ld\n",ans[arrInput[j]]);
+    free(ans);
+    return 0;
+}
