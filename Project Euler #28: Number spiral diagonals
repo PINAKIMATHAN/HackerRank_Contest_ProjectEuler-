@@ -1,0 +1,10 @@
+Project Euler #28: Number spiral diagonals
+---------------------------------------------------Python
+
+
+t = int(input())
+for i in range(t):
+    n = int(input())//2+1
+    w = n-1
+    result = 1+4*((n*(2*n+1)*(2*n-1))//3 -1 )-12*((w*(w+1))//2)
+    print(result%(10**9+7))
