@@ -1,0 +1,41 @@
+Project Euler #39: Integer right triangles
+-------------------------------------------------Python
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+import math
+from collections import defaultdict
+
+n, pyth, minval = 5*10**6, defaultdict(int), 0
+
+for i in range(1, int(math.sqrt(n))):
+    for j in range(1, i):
+        if math.gcd(i, j) == 1:
+            a, b, c = i**2-j**2, 2*i*j, i**2+j**2 #Eulers formula
+            if not math.gcd(a, b, c) == 1: #filter non primitive triplets to avoid duplication
+                continue
+            if a+b+c > n:
+                break
+            k = 1
+            while True:
+                pyth[k*(a+b+c)] += 1
+                k += 1
+                if k*(a+b+c) > n:
+                    break
+vals = [(0,0)]
+for i in sorted(pyth):
+    if pyth[i] > vals[-1][1]:
+        vals.append((i, pyth[i]))
+        
+def search(v, l, r, a):
+    if l == r:
+        if v < a[l][0]:
+            return(a[l-1][0])
+        return(a[l][0])
+    m = (l+r)//2
+    if v <= a[m][0]:
+        return(search(v, l, m, a))
+    else:
+        return(search(v, m+1, r, a))
+       
+for a0 in range(int(input())):
+    N = int(input())
+    print(search(N, 0, len(vals)-1, vals))
