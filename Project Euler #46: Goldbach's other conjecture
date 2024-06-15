@@ -1,0 +1,52 @@
+Project Euler #46: Goldbach's other conjecture
+-------------------------------------------------------Python
+import math
+
+def main():
+    numberOfTestCases = int(input())
+    generatePrimes()
+
+    for i in range(numberOfTestCases):
+        res = 0
+        n = int(input())
+        for j in range(2, n+1):
+            if prime[j]:
+                diff = n-j
+                if diff % 2 == 0 and isPerfectSquare(diff//2):
+                    res += 1
+        print(res)
+
+def isPerfectSquare(input):
+    root = int(math.sqrt(input))
+    return input == root * root
+
+def generatePrimes():
+    limit = 1000000
+    global prime
+    prime = [False] * (limit+1)
+    prime[2] = True
+    prime[3] = True
+    root = int(math.ceil(math.sqrt(limit)))
+
+    # Sieve of Atkin for prime number generation
+    for x in range(1, root):
+        for y in range(1, root):
+            n = 4 * x * x + y * y
+            if n <= limit and (n % 12 == 1 or n % 12 == 5):
+                prime[n] = not prime[n]
+
+            n = 3 * x * x + y * y
+            if n <= limit and n % 12 == 7:
+                prime[n] = not prime[n]
+
+            n = 3 * x * x - y * y
+            if x > y and n <= limit and n % 12 == 11:
+                prime[n] = not prime[n]
+
+    for i in range(5, root):
+        if prime[i]:
+            for j in range(i * i, limit, i * i):
+                prime[j] = False
+
+if __name__ == "__main__":
+    main()
