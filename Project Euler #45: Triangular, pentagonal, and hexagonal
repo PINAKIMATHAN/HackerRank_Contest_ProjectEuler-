@@ -1,0 +1,23 @@
+Project Euler #45: Triangular, pentagonal, and hexagonal
+-------------------------------------------------------------Python
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+N, n1, n2 =  map(int, input().split())
+
+# dict acting like a dispatcher to calculate series value
+l_n = { 3 : lambda x: (x*(x+1))//2 , 5: lambda x: (x*(3*x-1))//2 , 
+                    6: lambda x: x*(2*x - 1)  }
+    
+nc1, nc2 = 1, 1 # two counters to catch up the series without saving value
+
+while True:
+    val_n2, val_n1 = l_n[n2](nc2), l_n[n1](nc1)
+    ''' compute for the higher order series and let the lower value series catch up '''
+    while val_n1 < val_n2:
+        nc1 += 1
+        val_n1 = l_n[n1](nc1)
+    if val_n1 >= N:
+        break
+    if val_n1 == val_n2:
+        print(val_n1)
+    nc2 += 1
