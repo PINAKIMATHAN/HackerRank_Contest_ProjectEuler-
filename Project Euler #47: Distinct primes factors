@@ -1,0 +1,25 @@
+Project Euler #47: Distinct primes factors
+-------------------------------------------------Python
+def sieve(n):
+    arr = [0] * n
+    
+    for i in range(2, n):
+        if arr[i] : continue
+        
+        for j in range(i, n, i):
+            arr[j] += 1
+    
+    return arr
+
+N, K = map(int, input().split())
+sieve = sieve(N + K)
+ret = []
+
+for i in range(N + 1):
+    curr = sieve[i]
+    
+    if curr == K:
+        if all(j == K for j in sieve[i + 1: i + K]):
+            ret.append(i)
+            
+[print(i) for i in ret]
