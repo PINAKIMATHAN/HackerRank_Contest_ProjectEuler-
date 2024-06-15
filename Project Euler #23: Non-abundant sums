@@ -1,0 +1,28 @@
+Project Euler #23: Non-abundant sums
+--------------------------------------------Python
+#python
+def divsum(n):
+    s=1
+    for x in range(2, int(n**.5)+1):
+        if n %x==0:
+            s+=x
+            if n//x!=x:
+                s+=n//x
+    return s
+res=set()
+for x in range(12, 28123):
+    if x<divsum(x):
+        res.add(x)
+def check(n):
+    if n>28123:
+        return "YES"
+    elif n/2 in res:
+        return "YES"
+    for x in res:
+        if n-x in res:
+            return "YES"
+    return "NO"
+t=int(input())
+for x in range(t):
+    n=int(input())
+    print(check(n))
